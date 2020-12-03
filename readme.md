@@ -21,6 +21,7 @@ CREATE TABLE evening_infos (
     sports_time DECIMAL,
     eating_quality INTEGER,
     mood INTEGER,
+    date DATE,
     user_id INTEGER REFERENCES users(id)
 );
 

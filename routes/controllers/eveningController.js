@@ -1,4 +1,4 @@
-import { getEveningInfos} from '../../services/eveningService.js'
+import { getEveningInfos } from '../../services/eveningService.js'
 
 const showEveningInfos = async({render}) => {
     const data = {
