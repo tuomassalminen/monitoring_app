@@ -1,10 +1,10 @@
-import { getEveningInfos } from '../../services/eveningService.js'
+import * as service from '../../services/eveningService.js'
 
-const showEveningInfos = async({render}) => {
+const showEveningPage= async({render}) => {
     const data = {
-        eveningInfos: await getEveningInfos()
+        eveningInfos: await service.getEveningReports()
     }
-    render('index.ejs', data);
+    render('eveningReporting.ejs', data);
 };
   
-export { showEveningInfos };
+export { showEveningPage };

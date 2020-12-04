@@ -1,1 +1,2 @@
-// left here to include the tests folder in the starter
+import './example.test.js'
+

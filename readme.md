@@ -6,7 +6,7 @@ CREATE TABLE users (
 
 CREATE UNIQUE INDEX ON users((lower(username)));
 
-CREATE TABLE morning_infos (
+CREATE TABLE morning_reports (
     id SERIAL PRIMARY KEY,
     sleep_duration DECIMAL
     sleep_quality INTEGER,
@@ -15,7 +15,7 @@ CREATE TABLE morning_infos (
     user_id INTEGER REFERENCES users(id)
 );
 
-CREATE TABLE evening_infos (
+CREATE TABLE evening_reports (
     id SERIAL PRIMARY KEY,
     study_time DECIMAL,
     sports_time DECIMAL,

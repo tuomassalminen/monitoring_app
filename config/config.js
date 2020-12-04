@@ -1,12 +1,4 @@
-import * as denoenv from '../deps.js'
-
-const {
-    HOSTNAME,
-    DATABASE,
-    USER,
-    PASSWORD,
-    PORT
-} = denoenv.config()
+import * as env from "https://deno.land/x/dotenv/mod.ts";
 
 let config = {};
 
@@ -14,11 +6,11 @@ if (Deno.env.get('TEST_ENVIRONMENT')) {
     config.database = {}
 } else {
     config.database = {
-        hostname: HOSTNAME,
-        database: DATABASE,
-        user: USER,
-        password: PASSWORD,
-        port: PORT
+        hostname: env.config()['HOSTNAME'],
+        database: env.config()['DATABASE'],
+        user: env.config()['USER'],
+        password: env.config()['PASSWORD'],
+        port: parseInt(env.config()['PORT'])
     };
 }
 

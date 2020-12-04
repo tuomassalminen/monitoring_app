@@ -1,20 +1,16 @@
 import { executeQuery } from '../database/database.js'
 
-const getMorningInfos= async() => {
-    const res = await executeQuery("SELECT * FROM morning_infos");
-    if (res && res.rowCount > 0) {
-        return res.rowsOfObjects();
-    }
-  
-    return 'No morning infos available';
+const getMorningReports= async() => {
+    const res = await executeQuery("SELECT * FROM morning_reports");
+    return res.rowsOfObjects();
+    
 }
 
-const addMorningInfo = async(info) => {
-    const res = await executeQuery(
-        'INSERT INTO morning_infos (sleep_duration, sleep_quality, mood, date, userId) VALUES ($1, $2, $3, NOW(), 1)',
-        info.sleepDuration, info.sleepQuality, info.mood
+const addMorningReport = async(report) => {
+    await executeQuery(
+        'INSERT INTO morning_reports (sleep_duration, sleep_quality, mood, date, user_id) VALUES ($1, $2, $3, $4, $5)',
+        report.sleepDuration, report.sleepQuality, report.mood, report.date, report.userId
     )
-    return res
 }
 
-export { getMorningInfos, addMorningInfo };
+export { getMorningReports, addMorningReport };
