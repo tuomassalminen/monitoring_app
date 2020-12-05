@@ -3,7 +3,6 @@ import { router } from './routes/routes.js'
 import * as middleware from './middlewares/middlewares.js'
 import { viewEngine, engineFactory, adapterFactory } from "./deps.js";
 import { Session } from './deps.js';
-import * as bcrypt from "./deps.js";
 
 
 const app = new Application();
@@ -27,10 +26,8 @@ app.use(middleware.checkAuthenticationMiddleware);
 
 app.use(router.routes());
 
-
-
-if (!Deno.env.get('TEST_ENVIRONMENT')) {
-    app.listen({ port: 7777 });
-  }
+app.listen({ port: 7777 });
+ 
+  
     
-  export default app;
+export default app;

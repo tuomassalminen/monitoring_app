@@ -13,18 +13,18 @@ const postLoginForm = async({request, response, session}) => {
     const body = request.body();
     const params = await body.value;
   
-    const username = params.get('username');
+    const email = params.get('email');
     const password = params.get('password');
   
     // check if the email exists in the database
-    const res = await getUser(username)
-    if (res.rowCount === 0) {
-        response.body = 'Username reserved'
+    const userList = await getUser(email)
+    if (userList.length === 0) {
+        response.body = 'Email reserved'
         return
     }
   
     // take the first row from the results
-    const userObj = res.rowsOfObjects()[0];
+    const userObj = userList[0];
   
     const hash = userObj.password;
   
@@ -37,7 +37,7 @@ const postLoginForm = async({request, response, session}) => {
     await session.set('authenticated', true);
     await session.set('user', {
         id: userObj.id,
-        username: userObj.username
+        email: userObj.email
     });
     response.redirect('/');
 }
@@ -46,7 +46,7 @@ const postRegistrationForm = async({request, response}) => {
     const body = request.body();
     const params = await body.value;
     
-    const username = params.get('username');
+    const email = params.get('email');
     const password = params.get('password');
     const verification = params.get('verification');
   
@@ -55,14 +55,14 @@ const postRegistrationForm = async({request, response}) => {
       return;
     }
   
-    const existingUsers = await getUser(username);
+    const existingUsers = await getUser(email);
     if (existingUsers.rowCount > 0) {
-      response.body = 'The username is already reserved.';
+      response.body = 'The email is already reserved.';
       return;
     }
   
     const hash = await bcrypt.hash(password);
-    await addUser(username, hash)
+    await addUser(email, hash)
     response.redirect('/')
 };
   

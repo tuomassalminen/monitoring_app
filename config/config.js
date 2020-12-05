@@ -1,16 +1,22 @@
-import * as env from "https://deno.land/x/dotenv/mod.ts";
+import "https://deno.land/x/dotenv/load.ts"
 
 let config = {};
 
-if (Deno.env.get('TEST_ENVIRONMENT')) {
-    config.database = {}
+if (Deno.env.get('TEST_ENVIRONMENT') === "true") {
+    config.database = {
+        hostname: Deno.env.get('TEST_HOSTNAME'),
+        database: Deno.env.get('TEST_DATABASE'),
+        user: Deno.env.get('TEST_USER'),
+        password: Deno.env.get('TEST_PASSWORD'),
+        port: parseInt(Deno.env.get('TEST_PORT'))
+    }
 } else {
     config.database = {
-        hostname: env.config()['HOSTNAME'],
-        database: env.config()['DATABASE'],
-        user: env.config()['USER'],
-        password: env.config()['PASSWORD'],
-        port: parseInt(env.config()['PORT'])
+        hostname: Deno.env.get('HOSTNAME'),
+        database: Deno.env.get('DATABASE'),
+        user: Deno.env.get('USER'),
+        password: Deno.env.get('PASSWORD'),
+        port: parseInt(Deno.env.get('PORT'))
     };
 }
 

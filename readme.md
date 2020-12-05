@@ -1,17 +1,17 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(320) TEXT NOT NULL,
+    email TEXT NOT NULL,
     password CHAR(60) NOT NULL
 );
 
-CREATE UNIQUE INDEX ON users((lower(username)));
+CREATE UNIQUE INDEX ON users((lower(email)));
 
 CREATE TABLE morning_reports (
     id SERIAL PRIMARY KEY,
-    sleep_duration DECIMAL
+    sleep_duration DECIMAL,
     sleep_quality INTEGER,
     mood INTEGER,
-    date, DATE,
+    date DATE,
     user_id INTEGER REFERENCES users(id)
 );
 
