@@ -18,4 +18,4 @@ jobs:
           deno-version: "v1.5.4"
 
       - name: Run tests
-        run: TEST_ENVIRONMENT="true" deno test --allow-all --unstable
+        run: HOSTNAME="hattie.db.elephantsql.com" DATABASE="hvusjfns" USER="hvusjfns" PASSWORD="Qtuw2-Hy7WZbixjca5Mbk510uC7hUKCH" PORT="5432" deno test --allow-all --unstable
