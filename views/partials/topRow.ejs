@@ -1,0 +1,9 @@
+<div style="display: flex; flex-direction: row;">
+    <a style="margin-right: 10px" href="/" class='button'>Home</a>
+    <% if (loggedIn) { %>
+        <%- include('./logout.ejs') %>
+    <% } else { %>
+        <a style="margin-right: 10px" href="/auth/register" class='button button-clear'>Register</a>
+        <a style="margin-right: 10px"href="/auth/login" class='button '>Login</a>
+    <% } %>
+</div>

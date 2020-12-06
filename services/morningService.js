@@ -1,9 +1,17 @@
 import { executeQuery } from '../database/database.js'
+import { getToday } from '../utils.js'
 
 const getMorningReports= async() => {
     const res = await executeQuery("SELECT * FROM morning_reports");
-    return res.rowsOfObjects();
-    
+    return res.rowsOfObjects(); 
+}
+
+const getTodaysMorningReport = async() => {
+    const res = await executeQuery("SELECT * FROM morning_reports WHERE date=$1", getToday())
+    if (res) {
+        return res.rowsOfObjects()
+    }
+    return []
 }
 
 const addMorningReport = async(report) => {
@@ -13,4 +21,8 @@ const addMorningReport = async(report) => {
     )
 }
 
-export { getMorningReports, addMorningReport };
+export { 
+    getMorningReports, 
+    addMorningReport,
+    getTodaysMorningReport
+};

@@ -1,6 +1,7 @@
 <%- include('./partials/header.ejs') %>
+<%- include('./partials/topRow.ejs', {loggedIn: true}) %>
+
 <h2>Evening reporting</h2>
-<%- include('./partials/logout.ejs') %>
 <%- include('./partials/eveningForm.ejs') %>
 <a href="/behavior/reporting" class="button">Back</a>
 <%- include('./partials/footer.ejs') %>

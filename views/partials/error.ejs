@@ -2,7 +2,7 @@
 <% if (errors && errors[attribute]) { %>
     <ul>
         <% Object.values(errors[attribute]).forEach((err) => { %>
-            <li class="error"><%= err %></li>
+            <li style="padding: 10px;list-style-type: none; color:#D8000C; background-color:#FFBABA;"><%= err %></li>
         <% }); %>
     </ul>
 <% } %>

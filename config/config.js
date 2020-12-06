@@ -2,7 +2,7 @@ import "https://deno.land/x/dotenv/load.ts"
 
 let config = {};
 
-if (Deno.env.get('TEST_ENVIRONMENT') === "true") {
+if (Deno.env.get('TEST_ENVIRONMENT')) {
     config.database = {
         hostname: Deno.env.get('TEST_HOSTNAME'),
         database: Deno.env.get('TEST_DATABASE'),
