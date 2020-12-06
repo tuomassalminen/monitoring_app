@@ -1,7 +1,7 @@
 import * as morningService from '../../services/morningService.js'
 import * as eveningService from '../../services/eveningService.js'
 
-const getAllNews = async({response}) => {
+const getAllMorningReports = async({response}) => {
     response.body = await newsService.getAllNews();
 };
 

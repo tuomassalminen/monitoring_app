@@ -1,9 +1,21 @@
 <%- include('./partials/header.ejs') %>
 <h1>Register!</h1>
+
 <form method="POST" action="/auth/register">
-    <input type="email" name="email" />
-    <input type="password" name="password" />
-    <input type="password" name="verification" />
+    <%- include('./partials/error.ejs', {errors: errors, attribute: 'email'}) %>
+    <label for="registerEmail">Enter email:</label>
+    <input id="registerEmail" type="email" name="email" value="<%= email %>" />
+    
+    <%- include('./partials/error.ejs', {errors: errors, attribute: 'password'}) %>
+    <label for="registerPassword">Enter password:</label>
+    <input id="registerPassword" type="password" name="password" />
+    
+    <%- include('./partials/error.ejs', {errors: errors, attribute: 'verification'}) %>
+    <label for="verification">Enter password again:</label>
+    <input id="verification" type="password" name="verification" />
+    
     <input type="submit" value="Submit!" />
 </form>
+
+<a href="/auth/login" class="button">Login</a>
 <%- include('./partials/footer.ejs') %>

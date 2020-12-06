@@ -25,3 +25,6 @@ CREATE TABLE evening_reports (
     user_id INTEGER REFERENCES users(id)
 );
 
+When creating the test database i dont use the references of user_id,
+it's just "user_id INTEGER"
+

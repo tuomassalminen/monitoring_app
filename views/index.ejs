@@ -1,6 +1,10 @@
 <%- include('./partials/header.ejs') %>
 <h1>Monitoring app</h1>
-<a href="/auth/register">Register</a>
-<a href="/auth/login">Login</a>
-<a href="/behavior/reporting">Report</a>
+<% if (loggedIn) { %>
+    <a href="/behavior/reporting" class='button'>Report</a>
+    <%- include('./partials/logout.ejs') %>
+<% } else { %>
+    <a href="/auth/register" class='button'>Register</a>
+    <a href="/auth/login" class='button button-clear'>Login</a>
+<% } %>
 <%- include('./partials/footer.ejs') %>

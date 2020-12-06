@@ -1,7 +1,7 @@
 
-const showMain = async({render}) => {
+const showMain = async({render, session}) => {
     const data = {
-        
+        loggedIn: await session.get('authenticated')
     }
     render('index.ejs', data);
 };

@@ -33,7 +33,7 @@ const checkAuthenticationMiddleware = async({request, response, session}, next) 
     if (session && await session.get('authenticated')) {
       await next();
     } else {
-      response.response = "Not authenticated";
+      response.redirect('/auth/login');
     }
   } else {
     await next();
