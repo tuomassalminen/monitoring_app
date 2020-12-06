@@ -1,15 +1,22 @@
 <form method="POST" action="/behavior/reporting/morning">
+    <% if (success) { %>
+        <%- include('./success.ejs') %>
+    <% } %>
+    <%- include('./error.ejs', {errors: errors, attribute: 'date'}) %>
     <label for="morningDate">Date</label>
-    <input id="morningDate" type="date" name="date" value="<%= new Date().toISOString().slice(0, 10) %>" />
+    <input id="morningDate" type="date" name="date" value="<%= date %>" />
 
+    <%- include('./error.ejs', {errors: errors, attribute: 'sleepDuration'}) %>
     <label for="sleepDuration">Sleep duration (hours)</label>
-    <input id="sleepDuration" type="number" name="sleepDuration"/>
+    <input id="sleepDuration" type="number" name="sleepDuration" value="<%= sleepDuration %>"/>
 
+    <%- include('./error.ejs', {errors: errors, attribute: 'sleepQuality'}) %>
     <label for="sleepQuality">Sleep quality</label>
-    <input id="sleepQuality" type="range" name="sleepQuality" min="1" max="5"/>
+    <input id="sleepQuality" type="range" name="sleepQuality" min="1" max="5" value="<%= sleepQuality %>"/>
 
+    <%- include('./error.ejs', {errors: errors, attribute: 'mood'}) %>
     <label for="morningMood">Mood</label>
-    <input id="morningMood" type="range" name="mood" min="1" max="5"/>
+    <input id="morningMood" type="range" name="mood" min="1" max="5" value="<%= mood %>"/>
 
     <input type="submit" value="Submit"/>
 </form>

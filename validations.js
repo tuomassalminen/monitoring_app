@@ -1,4 +1,4 @@
-import { validate, required, minLength, isEmail, invalid } from "./deps.js"
+import { required, minLength, isEmail, invalid, isNumber, isInt, numberBetween, minNumber } from "./deps.js"
 import { getUser } from './services/userService.js'
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.2.4/mod.ts"
 
@@ -9,7 +9,7 @@ const isReservedEmail = async(email) => {
     }
 }
 
-export const wrongAuth = (password) => {
+const wrongAuth = (password) => {
     return async function wrongAuthRule(email) {
         const userList = await getUser(email)
         if (userList.length === 0) {
@@ -24,7 +24,7 @@ export const wrongAuth = (password) => {
     }
 }
 
-export const passwordsMatch = (password) => {
+const passwordsMatch = (password) => {
     return async function passwordsMatchRule(verification) {
         if (password !== verification) {
             return invalid("passwordsMatch", {verification})
@@ -32,14 +32,14 @@ export const passwordsMatch = (password) => {
     }
 }
 
-export const registerValidationRules = {
+const registerValidationRules = {
     email: [required, isEmail, isReservedEmail],
     password: [required, minLength(4)],
     verification: [required]
 }
 
 
-export const registerValidationMessages = {
+const registerValidationMessages = {
     messages: {
         "email.isReservedEmail": "Email already in use",
         "password": "Password needs to be 4 or more characters",
@@ -47,14 +47,40 @@ export const registerValidationMessages = {
     }
 }
 
-export const loginValidationRules = {
+const loginValidationRules = {
     email: [required, isEmail],
     password: [required]
 };
 
-export const loginValidationMessages = {
+const loginValidationMessages = {
     messages: {
         "email.wrongAuth": "Email or password wrong",
         "password": "Password required"
     }
+}
+
+const eveningValidationRules = {
+    studyTime: [required, isNumber, minNumber(0)],
+    sportsTime: [required, isNumber, minNumber(0)],
+    eatingQuality: [required, isInt, numberBetween(1, 5)],
+    mood: [required, isInt, numberBetween(1, 5)],
+    date: [required]
+}
+
+const morningValidationRules = {
+    sleepDuration: [required, isNumber, minNumber(0)],
+    sleepQuality: [required, isInt, numberBetween(1, 5)],
+    mood: [required, isInt, numberBetween(1, 5)],
+    date: [required]
+}
+
+export {
+    loginValidationMessages,
+    loginValidationRules,
+    registerValidationMessages,
+    registerValidationRules,
+    eveningValidationRules,
+    morningValidationRules,
+    passwordsMatch,
+    wrongAuth
 }

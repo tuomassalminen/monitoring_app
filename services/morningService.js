@@ -15,6 +15,7 @@ const getTodaysMorningReport = async() => {
 }
 
 const addMorningReport = async(report) => {
+    await executeQuery('DELETE FROM morning_reports WHERE date = $1', report.date)
     await executeQuery(
         'INSERT INTO morning_reports (sleep_duration, sleep_quality, mood, date, user_id) VALUES ($1, $2, $3, $4, $5)',
         report.sleepDuration, report.sleepQuality, report.mood, report.date, report.userId
