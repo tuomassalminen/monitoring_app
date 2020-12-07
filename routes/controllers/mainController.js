@@ -32,7 +32,7 @@ const showMain = async({render, session}) => {
             todaysMood,
             yesterdaysMood,
             trend,
-            userEmail: userEmail
+            userEmail: user.email
         }
         render('index.ejs', data)
     } else {
