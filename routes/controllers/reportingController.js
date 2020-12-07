@@ -3,9 +3,10 @@ import * as morningService from '../../services/morningService.js'
 import { getToday } from '../../utils.js'
 
 
-const showReportingSelection = async({render}) => {
-    const eveningReportList = await eveningService.getReportByDate(getToday())
-    const morningReportList = await morningService.getReportByDate(getToday())
+const showReportingSelection = async({render, session}) => {
+    const user = await session.get('user')
+    const eveningReportList = await eveningService.getReportByDate(getToday(), user.id)
+    const morningReportList = await morningService.getReportByDate(getToday(), user.id)
     let morningDone = false
     let eveningDone = false
     if (morningReportList.length > 0) {

@@ -26,6 +26,8 @@ const wrongAuth = (password) => {
 
 const passwordsMatch = (password) => {
     return async function passwordsMatchRule(verification) {
+        console.log(password)
+        console.log(verification)
         if (password !== verification) {
             return invalid("passwordsMatch", {verification})
         }

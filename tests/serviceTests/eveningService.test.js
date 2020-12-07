@@ -24,7 +24,7 @@ test(eveningServiceSuite, "create evening report and see it in database", async(
     }
 
     await eveningService.addReport(newReport)
-    const reportList = await eveningService.getReportByDate(testDate)
+    const reportList = await eveningService.getReportByDate(testDate, testUserId)
     assert(reportList.length > 0)
 });
 
@@ -40,7 +40,7 @@ test(eveningServiceSuite, "creating report with the same date replaces the previ
     }
 
     await eveningService.addReport(newReport)
-    const reportList = await eveningService.getReportByDate(testDate)
+    const reportList = await eveningService.getReportByDate(testDate, testUserId)
     assertEquals(reportList.length, 1)
     assertEquals(reportList[0].study_time, "1")
 });

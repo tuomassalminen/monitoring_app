@@ -33,7 +33,10 @@ const postLoginForm = async({request, response, session, render}) => {
 
     // Add email/password verification rule to the login validation object
     let loginValidation = validation.loginValidationRules
-    loginValidation.email.push(validation.wrongAuth(data.password))
+    loginValidation = {
+        ...loginValidation,
+        email: loginValidation.email.concat(validation.wrongAuth(data.password))
+    }
 
 
     const [passes, errors] = await validate(
@@ -63,7 +66,10 @@ const postRegistrationForm = async({request, response, render}) => {
 
     // Add passwords matching rule
     let registerValidation = validation.registerValidationRules
-    registerValidation.verification.push(validation.passwordsMatch(data.password))
+    registerValidation = {
+        ...registerValidation,
+        verification: registerValidation.verification.concat(validation.passwordsMatch(data.password))
+    }
     
     const [passes, errors] = await validate(
         data, 

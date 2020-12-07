@@ -23,7 +23,7 @@ test(morningServiceSuite, "create morning report and see it in database", async(
     }
 
     await morningService.addReport(newReport)
-    const reportList = await morningService.getReportByDate(testDate)
+    const reportList = await morningService.getReportByDate(testDate, testUserId)
     assert(reportList.length > 0)
 });
 
@@ -38,7 +38,7 @@ test(morningServiceSuite, "creating report with the same date replaces the previ
     }
 
     await morningService.addReport(newReport)
-    const reportList = await morningService.getReportByDate(testDate)
+    const reportList = await morningService.getReportByDate(testDate, testUserId)
     assertEquals(reportList.length, 1)
     assertEquals(reportList[0].sleep_duration, "1")
 });

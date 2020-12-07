@@ -5,8 +5,8 @@ const getReports = async() => {
     return res.rowsOfObjects()
 }
 
-const getReportByDate = async(date) => {
-    const res = await executeQuery("SELECT * FROM evening_reports WHERE date=$1", date)
+const getReportByDate = async(date, userId) => {
+    const res = await executeQuery("SELECT * FROM evening_reports WHERE date=$1 AND user_id=$2", date, userId)
     if (res) {
         return res.rowsOfObjects()
     }
