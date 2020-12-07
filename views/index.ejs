@@ -3,6 +3,9 @@
 <h1>Monitoring app</h1>
 <p>This is an app for monitoring your activities. You can report every morning your sleep duration, 
     quality and mood. For evening you can report your studying time, sports time, eating quality and mood</p>
+<% if (!loggedIn) { %>
+    <p>Start by logging in or creating an account</p>
+<% } %>
 <% if (loggedIn) { %>
     <h4>Welcome <%= userEmail %>!</h4>
     <h3>Average mood for today:</h3>
