@@ -1,4 +1,4 @@
-import * as service from '../../services/morningService.js'
+import * as morningService from '../../services/morningService.js'
 import { validate } from "../../deps.js"
 import * as validation from '../../validations.js'
 import { getToday } from '../../utils.js'
@@ -46,15 +46,17 @@ const postMorningReport = async({request, response, session, render}) => {
         const data = {
             report
         }
+        response.status = 401
         render('morningReporting.ejs', data)
     } else {
         const user = await session.get('user')
         report.userId = user.id
-        await service.addMorningReport(report)
+        await morningService.addReport(report)
         report.success = true
         const data = {
             report
         }
+        response.status = 200
         render('morningReporting.ejs', data)
     }
 }

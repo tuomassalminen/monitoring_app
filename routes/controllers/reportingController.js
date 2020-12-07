@@ -1,9 +1,11 @@
-import { getTodaysEveningReport } from '../../services/eveningService.js'
-import { getTodaysMorningReport } from '../../services/morningService.js'
+import * as eveningService from '../../services/eveningService.js'
+import * as morningService from '../../services/morningService.js'
+import { getToday } from '../../utils.js'
+
 
 const showReportingSelection = async({render}) => {
-    const eveningReportList = await getTodaysEveningReport()
-    const morningReportList = await getTodaysMorningReport()
+    const eveningReportList = await eveningService.getReportByDate(getToday())
+    const morningReportList = await morningService.getReportByDate(getToday())
     let morningDone = false
     let eveningDone = false
     if (morningReportList.length > 0) {

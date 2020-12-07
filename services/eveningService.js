@@ -1,22 +1,20 @@
 import { executeQuery } from '../database/database.js'
-import { getToday } from '../utils.js'
 
-const getEveningReports = async() => {
+const getReports = async() => {
     const res = await executeQuery("SELECT * FROM evening_reports");
     return res.rowsOfObjects()
-  
 }
 
-const getTodaysEveningReport = async() => {
-    const res = await executeQuery("SELECT * FROM evening_reports WHERE date=$1", getToday())
+const getReportByDate = async(date) => {
+    const res = await executeQuery("SELECT * FROM evening_reports WHERE date=$1", date)
     if (res) {
         return res.rowsOfObjects()
     }
     return []
 }
 
-const addEveningReport = async(report) => {
-    await executeQuery('DELETE FROM evening_reports WHERE date = $1', report.date)
+const addReport = async(report) => {
+    await executeQuery('DELETE FROM evening_reports WHERE date = $1 AND user_id = $2', report.date, report.userId)
     
     await executeQuery(
         'INSERT INTO evening_reports (study_time, sports_time, eating_quality, mood, date, user_id) VALUES ($1, $2, $3, $4, $5, $6)',
@@ -25,7 +23,7 @@ const addEveningReport = async(report) => {
 }
 
 export { 
-    getEveningReports,
-    getTodaysEveningReport,
-    addEveningReport
+    getReports,
+    getReportByDate,
+    addReport
 };

@@ -8,20 +8,24 @@ const errorMiddleware = async(context, next) => {
   }
 }
 
-const requestTimingMiddleware = async({ request }, next) => {
+const requestTimingMiddleware = async({ request, session }, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
-  console.log(`${request.method} ${request.url.pathname} - ${ms} ms`);
+  let userId = 'anonymous'
+  if (await session && await session.get('authenticated')) {
+    userId = (await session.get('user')).id
+  }
+  console.log(`${request.method} ${request.url.pathname} - ${ms} ms User: ${userId}`);
 }
 
 const serveStaticFilesMiddleware = async(context, next) => {
   if (context.request.url.pathname.startsWith('/static')) {
-    const path = context.request.url.pathname.substring(7);
+    const path = context.request.url.pathname.substring(7)
   
     await send(context, path, {
       root: `${Deno.cwd()}/static`
-    });
+    })
   
   } else {
     await next();
@@ -29,7 +33,12 @@ const serveStaticFilesMiddleware = async(context, next) => {
 }
 
 const checkAuthenticationMiddleware = async({request, response, session}, next) => {
-  if (request.url.pathname.startsWith('/behavior/reporting')) {
+  // I do this so i can test report forms easier
+  if (Deno.env.get('TEST_ENVIRONMENT')) {
+    await next()
+    return
+  }
+  if (request.url.pathname.startsWith('/behavior')) {
     if (session && await session.get('authenticated')) {
       await next();
     } else {

@@ -1,0 +1,43 @@
+<%- include('./partials/header.ejs') %>
+<%- include('./partials/topRow.ejs', {loggedIn: true}) %>
+<h1>Summary</h1>
+<form style='display: flex; flex-direction: row;' method="POST" action="/behavior/summary">
+    <div style='width: 50%; margin: 10px'>
+        <label for='weekSelector'>Summary for the week</label>
+        <input type="week" id="weekSelector" name="week" onchange='this.form.submit()' value="<%= week %>"/>
+    </div>
+    <div style='width: 50%; margin: 10px'>
+        <label for='monthSelector'>Summary for the month</label>
+        <input type="month" id="monthSelector" name="month" onchange='this.form.submit()' value="<%= month %>"/>
+    </div>
+</form>
+<div style='display: flex; flex-direction: row;'>
+    <div style='width: 50%; margin: 10px'>
+        <h3>Week averages per day</h3>
+        <% if (weekAverages) { %>
+            <p>Sleep duration: <%= weekAverages.sleepDuration %></p>
+            <p>Sleep quality: <%= weekAverages.sleepQuality %></p>
+            <p>Sports and exercise time: <%= weekAverages.sportsTime %></p>
+            <p>Study time: <%= weekAverages.studyTime %></p>
+            <p>Mood: <%= weekAverages.mood %></p>
+        <% } else { %>
+            <p>No info colleted for the given week</p>
+        <% } %>
+    </div>
+    <div style='width: 50%; margin: 10px'>
+        <h3>Month averages per day</h3>
+        <% if (monthAverages) { %>
+            <p>Sleep duration: <%= monthAverages.sleepDuration %></p>
+            <p>Sleep quality: <%= monthAverages.sleepQuality %></p>
+            <p>Sports and exercise time: <%= monthAverages.sportsTime %></p>
+            <p>Study time: <%= monthAverages.studyTime %></p>
+            <p>Mood: <%= monthAverages.mood %></p>
+        <% } else { %>
+            <p>No info colleted for the given month</p>
+        <% } %>
+    </div>
+</div>
+<a href='/behavior/reporting' class='button'>Back</a>
+
+<%- include('./partials/footer.ejs') %>
+

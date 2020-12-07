@@ -12,9 +12,7 @@ const userRegisterSuite = new TestSuite({
 test(userRegisterSuite, 'Invalid email shows correct error', async() => {
     const testClient = await superoak(app)
     const response = await testClient.post('/auth/register')
-        .send(`email=asdf`)
-        .send(`password=${testPassword}`)
-        .send(`verification=${testPassword}`)
+        .send(`email=asdf&password=${testPassword}&verification=${testPassword}`)
         .expect(401)
 
     assert(response.text.includes('email is invalid'))
@@ -24,9 +22,7 @@ test(userRegisterSuite, 'Reserved email shows correct error', async() => {
     await addUser(testEmail, testHash)
     const testClient = await superoak(app)
     const response = await testClient.post('/auth/register')
-        .send(`email=${testEmail}`)
-        .send(`password=${testPassword}`)
-        .send(`verification=${testPassword}`)
+        .send(`email=${testEmail}&password=${testPassword}&verification=${testPassword}`)
         .expect(401)
 
     assert(response.text.includes('Email already in use'))
@@ -36,9 +32,7 @@ test(userRegisterSuite, 'Reserved email shows correct error', async() => {
 test(userRegisterSuite, 'Passwords not matching shows correct error', async() => {
     const testClient = await superoak(app)
     const response = await testClient.post('/auth/register')
-        .send(`email=test2@email.com`)
-        .send(`password=${testPassword}`)
-        .send(`verification=asdf`)
+        .send(`email=${testEmail}2&password=${testPassword}&verification=wrongpassword`)
         .expect(401)
 
     assert(response.text.includes("Passwords do not match"))  
@@ -51,8 +45,7 @@ const userLoginSuite = new TestSuite({
 test(userLoginSuite, 'Logging with incorrect credentials shows correct error', async() => {
     const testClient = await superoak(app)
     const response = await testClient.post('/auth/login')
-        .send(`email=asdf`)
-        .send(`password=asdf`)
+        .send(`email=asdf&password=asdf`)
         .expect(401)
 
     assert(response.text.includes("Email or password wrong"))  

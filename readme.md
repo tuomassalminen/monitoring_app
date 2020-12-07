@@ -12,7 +12,7 @@ CREATE TABLE morning_reports (
     sleep_quality INTEGER,
     mood INTEGER,
     date DATE,
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES users
 );
 
 CREATE TABLE evening_reports (
@@ -22,7 +22,7 @@ CREATE TABLE evening_reports (
     eating_quality INTEGER,
     mood INTEGER,
     date DATE,
-    user_id INTEGER REFERENCES users(id)
+    user_id INTEGER REFERENCES users
 );
 
 When creating the test database i dont use the references of user_id,
