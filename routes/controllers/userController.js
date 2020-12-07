@@ -54,7 +54,7 @@ const postLoginForm = async({request, response, session, render}) => {
             email: userObj.email
         });
         response.status = 200
-        response.redirect('/behavior/reporting');
+        response.redirect('/');
     }
 }
 

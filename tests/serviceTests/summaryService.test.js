@@ -14,46 +14,47 @@ const summaryServiceSuite = new TestSuite({
 const startDate = '2020-11-2'
 const endDate = '2020-11-5'
 
+const morningReport1 = {
+    sleepDuration: 5,
+    sleepQuality: 3,
+    mood: 2,
+    date: startDate,
+    userId: testUserId
+}
+const morningReport2 = {
+    sleepDuration: 7,
+    sleepQuality: 5,
+    mood: 3,
+    date: '2020-11-3',
+    userId: testUserId
+}
+const morningReport3 = {
+    sleepDuration: 4,
+    sleepQuality: 1,
+    mood: 2,
+    date: endDate,
+    userId: testUserId
+}
+const eveningReport1 = {
+    studyTime: 3,
+    sportsTime: 2,
+    eatingQuality: 3,
+    mood: 2,
+    date: '2020-11-3',
+    userId: testUserId
+}
+const eveningReport2 = {
+    studyTime: 4,
+    sportsTime: 1,
+    eatingQuality: 5,
+    mood: 5,
+    date: '2020-11-4',
+    userId: testUserId
+}
+
 test(summaryServiceSuite, "get correct average from a given time period", async() => {
     await executeQuery('TRUNCATE morning_reports')
     await executeQuery('TRUNCATE evening_reports')
-    const morningReport1 = {
-        sleepDuration: 5,
-        sleepQuality: 3,
-        mood: 2,
-        date: startDate,
-        userId: testUserId
-    }
-    const morningReport2 = {
-        sleepDuration: 7,
-        sleepQuality: 5,
-        mood: 3,
-        date: '2020-11-3',
-        userId: testUserId
-    }
-    const morningReport3 = {
-        sleepDuration: 4,
-        sleepQuality: 1,
-        mood: 2,
-        date: endDate,
-        userId: testUserId
-    }
-    const eveningReport1 = {
-        studyTime: 3,
-        sportsTime: 2,
-        eatingQuality: 3,
-        mood: 2,
-        date: '2020-11-3',
-        userId: testUserId
-    }
-    const eveningReport2 = {
-        studyTime: 4,
-        sportsTime: 1,
-        eatingQuality: 5,
-        mood: 5,
-        date: '2020-11-4',
-        userId: testUserId
-    }
 
     const expectedStudyTime = (eveningReport1.studyTime + eveningReport2.studyTime) / 2
     
@@ -101,4 +102,12 @@ test(summaryServiceSuite, "checks if a time period has or does not have entries"
     assertEquals(result1, true)
     const result2 = await summaryService.periodHasEntries('2020-10-1', '2020-10-5', testUserId)
     assertEquals(result2, false)
+});
+
+test(summaryServiceSuite, "gets average mood for a date", async() => {
+    const result1 = await summaryService.getAverageMoodForDate('2020-11-3', testUserId)
+    const expectedMood = (morningReport2.mood + eveningReport1.mood) / 2
+    assertEquals(result1, expectedMood)
+    const result2 = await summaryService.getAverageMoodForDate('2020-10-1', testUserId)
+    assertEquals(result2, null)
 });

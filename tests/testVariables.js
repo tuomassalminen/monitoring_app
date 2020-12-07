@@ -12,5 +12,5 @@ export const testDate = '2011-02-03'
 export const testUserId = 1
 
 export const testEatingQuality = 1
-export const testSportsTime = 10
-export const testStudyTime = 10
+export const testSportsTime = 3
+export const testStudyTime = 5

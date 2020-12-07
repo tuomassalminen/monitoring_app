@@ -1,9 +1,42 @@
+import { getAverageMoodForDate } from '../../services/summaryService.js'
+import { getToday, getYesterday  } from '../../utils.js'
 
 const showMain = async({render, session}) => {
-    const data = {
-        loggedIn: await session.get('authenticated')
+    const loggedIn = await session.get('authenticated')
+    let data = {
+        loggedIn
     }
-    render('index.ejs', data);
+    if (loggedIn) {
+        const userId = (await session.get('user')).id
+        let todaysMood = await getAverageMoodForDate(getToday(), userId)
+        let yesterdaysMood = await getAverageMoodForDate(getYesterday(), userId)
+        let trend = null
+        if (todaysMood && yesterdaysMood) {
+            if (todaysMood > yesterdaysMood) {
+                trend = 'Things look bright today'
+            } else {
+                trend = 'Things look gloomy today'
+            }
+        }
+        if (!todaysMood) {
+            todaysMood = 'No data for today'
+        }
+        if (!yesterdaysMood) {
+            yesterdaysMood = 'No data for yesterday'
+        }
+        if (!trend) {
+            trend = 'Cannot show trend if no data for both today and yesterday'
+        }
+        data = {
+            ...data,
+            todaysMood,
+            yesterdaysMood,
+            trend
+        }
+        render('index.ejs', data)
+    } else {
+        render('index.ejs', data);
+    }
 };
   
 export { showMain };

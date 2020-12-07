@@ -1,9 +1,8 @@
 import app from '../../app.js'
 import { TestSuite, test } from '../test.deps.js'
-
 import { superoak } from "../test.deps.js";
 import { assertEquals, assert } from '../test.deps.js'
-import { testEatingQuality, testMood, testDate } from '../testVariables.js'
+import { testSportsTime, testStudyTime, testEatingQuality, testMood, testDate } from '../testVariables.js'
 
 const eveningControllerSuite = new TestSuite({
     name: 'eveningControllerTests:'

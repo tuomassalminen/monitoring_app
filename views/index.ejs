@@ -1,7 +1,15 @@
 <%- include('./partials/header.ejs') %>
 <%- include('./partials/topRow.ejs', { loggedIn })%>
 <h1>Monitoring app</h1>
+<p>This is an app for monitoring your activities. You can report every morning your sleep duration, 
+    quality and mood. For evening you can report your studying time, sports time, eating quality and mood</p>
 <% if (loggedIn) { %>
+    <h3>Average mood for today:</h3>
+    <p><%= todaysMood %></p>
+    <h3>Average mood for yesterday:</h3>
+    <p><%= yesterdaysMood %></p>
+    <h3>Trend:</h3>
+    <p><%= trend %></p>
     <a href="/behavior/reporting" class='button'>Report</a>
-<% }  %>
+<% } %>
 <%- include('./partials/footer.ejs') %>

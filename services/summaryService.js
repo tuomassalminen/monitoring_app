@@ -47,7 +47,36 @@ const getAveragesFromPeriod = async(firstDay, lastDay, userId) => {
     }
 }
 
+const getAverageMoodForDate = async(date, userId) => {
+    const morningResult = await executeQuery(
+        'SELECT mood FROM morning_reports WHERE user_id = $1 AND date = $2',
+        userId, date
+    )
+    const eveningResult = await executeQuery(
+        'SELECT mood FROM evening_reports WHERE user_id = $1 AND date = $2',
+        userId, date
+    )
+    let morningMood = null
+    let eveningMood = null
+    if (morningResult.rowCount > 0) {
+        morningMood = morningResult.rowsOfObjects()[0].mood
+    }
+    if (eveningResult.rowCount > 0) {
+        eveningMood = eveningResult.rowsOfObjects()[0].mood
+    }
+    if (morningMood && eveningMood) {
+        return (Number(morningMood) + Number(eveningMood)) / 2
+    } else if (morningMood) {
+        return Number(morningMood)
+    } else if (eveningMood) {
+        return Number(eveningMood)
+    } else {
+        return null
+    }
+}
+
 export {
     getAveragesFromPeriod,
-    periodHasEntries
+    periodHasEntries,
+    getAverageMoodForDate
 }
