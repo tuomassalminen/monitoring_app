@@ -7,9 +7,9 @@ const showMain = async({render, session}) => {
         loggedIn
     }
     if (loggedIn) {
-        const userId = (await session.get('user')).id
-        let todaysMood = await getAverageMoodForDate(getToday(), userId)
-        let yesterdaysMood = await getAverageMoodForDate(getYesterday(), userId)
+        const user = await session.get('user')
+        let todaysMood = await getAverageMoodForDate(getToday(), user.id)
+        let yesterdaysMood = await getAverageMoodForDate(getYesterday(), user.id)
         let trend = null
         if (todaysMood && yesterdaysMood) {
             if (todaysMood > yesterdaysMood) {
