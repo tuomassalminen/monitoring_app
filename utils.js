@@ -1,12 +1,19 @@
 
 export const getToday = () => {
-    return new Date().toISOString().slice(0, 10)
+    const date = new Date()
+    return getDateAsString(date)
 }
 
 export const getYesterday = () => {
     let date = new Date()
     date.setDate(date.getDate() - 1)
-    return date.toISOString().slice(0, 10)
+    return getDateAsString(date)
+}
+
+export const getWeekAgo = () => {
+    let date = new Date()
+    date.setDate(date.getDate() - 6)
+    return getDateAsString(date)
 }
 
 export const getDateAsString = (date) => {

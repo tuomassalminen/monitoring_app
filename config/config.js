@@ -10,6 +10,9 @@ if (Deno.env.get('TEST_ENVIRONMENT')) {
         password: Deno.env.get('TEST_PASSWORD'),
         port: parseInt(Deno.env.get('TEST_PORT'))
     }
+} else if (Deno.env.get('DATABASE_URL')) {
+    const DATABASE_URL = Deno.env.toObject().DATABASE_URL
+    config.database = DATABASE_URL
 } else {
     config.database = {
         hostname: Deno.env.get('HOSTNAME'),

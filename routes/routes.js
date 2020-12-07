@@ -5,6 +5,7 @@ import * as eveningController from "./controllers/eveningController.js";
 import * as morningController from "./controllers/morningController.js";
 import * as userController from "./controllers/userController.js";
 import * as summaryController from "./controllers/summaryController.js";
+import * as summaryApi from '../routes/apis/summaryApi.js'
 
 
 const router = new Router()
@@ -22,6 +23,8 @@ router.post('/behavior/reporting/morning', morningController.postMorningReport)
 router.post('/behavior/reporting/evening', eveningController.postEveningReport)
 router.get('/behavior/summary', summaryController.showSummaryPage)
 router.post('/behavior/summary', summaryController.postChangeDate)
+router.get('/api/summary', summaryApi.getDataForLastWeek)
+router.get('/api/summary/:year/:month/:day', summaryApi.getDataForDate)
 
 
 export { router }

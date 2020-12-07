@@ -47,6 +47,41 @@ const getAveragesFromPeriod = async(firstDay, lastDay, userId) => {
     }
 }
 
+const getAveragesOfAll = async(firstDay, lastDay) => {
+    const morningResult = await executeQuery(
+        'SELECT AVG(sleep_duration) AS sleep_duration, AVG(sleep_quality) AS sleep_quality, AVG(mood) AS mood FROM morning_reports WHERE date BETWEEN $1 AND $2',
+        firstDay, lastDay
+    )
+
+    const eveningResult = await executeQuery(
+        'SELECT AVG(sports_time) AS sports_time, AVG(study_time) AS study_time, AVG(mood) AS mood FROM evening_reports WHERE date BETWEEN $1 AND $2',
+        firstDay, lastDay
+    )
+    const morningAverages = morningResult.rowsOfObjects()[0]
+    const eveningAverages = eveningResult.rowsOfObjects()[0]
+
+    const moodAverage = () => {
+        if (morningAverages.mood && eveningAverages.mood) {
+            return (Number(morningAverages.mood) + Number(eveningAverages.mood)) / 2
+        }
+        if (morningAverages.mood) {
+            return morningAverages.mood
+        }
+        if (eveningAverages.mood) {
+            return eveningAverages.mood
+        }
+        return null
+    }
+
+    return {
+        sleepDuration: morningAverages.sleep_duration,
+        sleepQuality: morningAverages.sleep_quality,
+        sportsTime: eveningAverages.sports_time,
+        studyTime: eveningAverages.study_time,
+        mood: moodAverage()
+    }
+}
+
 const getAverageMoodForDate = async(date, userId) => {
     const morningResult = await executeQuery(
         'SELECT mood FROM morning_reports WHERE user_id = $1 AND date = $2',
@@ -78,5 +113,6 @@ const getAverageMoodForDate = async(date, userId) => {
 export {
     getAveragesFromPeriod,
     periodHasEntries,
-    getAverageMoodForDate
+    getAverageMoodForDate,
+    getAveragesOfAll
 }
