@@ -51,6 +51,14 @@ const eveningReport2 = {
     date: '2020-11-4',
     userId: testUserId
 }
+const eveningReport3 = {
+    studyTime: 2,
+    sportsTime: 3,
+    eatingQuality: 1,
+    mood: 2,
+    date: '2020-11-6',
+    userId: testUserId
+}
 
 test(summaryServiceSuite, "get correct average from a given time period", async() => {
     await executeQuery('TRUNCATE morning_reports')
@@ -89,6 +97,7 @@ test(summaryServiceSuite, "get correct average from a given time period", async(
     await morningService.addReport(morningReport3)
     await eveningService.addReport(eveningReport1)
     await eveningService.addReport(eveningReport2)
+    await eveningService.addReport(eveningReport3)
     const averages = await summaryService.getAveragesFromPeriod(startDate, endDate, testUserId)
     assertEquals(expectedSleepDuration, Number(averages.sleepDuration))
     assertEquals(expectedSleepQuality, Number(averages.sleepQuality))
