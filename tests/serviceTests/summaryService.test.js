@@ -39,7 +39,7 @@ const eveningReport1 = {
     studyTime: 3,
     sportsTime: 2,
     eatingQuality: 3,
-    mood: 2,
+    mood: 4,
     date: '2020-11-3',
     userId: testUserId
 }
@@ -58,6 +58,14 @@ const eveningReport3 = {
     mood: 2,
     date: '2020-11-6',
     userId: testUserId
+}
+const eveningReport4 = {
+    studyTime: 2,
+    sportsTime: 3,
+    eatingQuality: 1,
+    mood: 5,
+    date: '2020-11-3',
+    userId: 2
 }
 
 test(summaryServiceSuite, "get correct average from a given time period", async() => {
@@ -80,16 +88,12 @@ test(summaryServiceSuite, "get correct average from a given time period", async(
         + morningReport3.sleepQuality
     ) / 3
 
-    const morningMoodAverage = ( 
+    const expectedMood = ( 
         morningReport1.mood
         + morningReport2.mood
-        + morningReport3.mood) / 3
-
-    const eveningMoodAverage = ( 
-        eveningReport1.mood
-        + eveningReport2.mood) / 2
-    
-    const expectedMood = (morningMoodAverage + eveningMoodAverage) / 2
+        + morningReport3.mood
+        + eveningReport1.mood
+        + eveningReport2.mood) / 5
 
 
     await morningService.addReport(morningReport1)
@@ -114,9 +118,15 @@ test(summaryServiceSuite, "checks if a time period has or does not have entries"
 });
 
 test(summaryServiceSuite, "gets average mood for a date", async() => {
-    const result1 = await summaryService.getAverageMoodForDate('2020-11-3', testUserId)
-    const expectedMood = (morningReport2.mood + eveningReport1.mood) / 2
-    assertEquals(result1, expectedMood)
-    const result2 = await summaryService.getAverageMoodForDate('2020-10-1', testUserId)
+    await eveningService.addReport(eveningReport4)
+    const result1 = await summaryService.getAverageMoodForDate('2020-11-3')
+    assertEquals(result1, 4)
+    const result2 = await summaryService.getAverageMoodForDate('2020-10-1')
     assertEquals(result2, null)
 });
+
+test(summaryServiceSuite, "gets report amount from period", async() => {
+    const result = await summaryService.getReportAmountFromPeriod(startDate, endDate)
+    assertEquals(result, 6)
+});
+

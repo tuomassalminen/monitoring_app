@@ -114,5 +114,5 @@ test(summaryApiSuite, '/api/summary/:year/:month/:day shows average of selected 
     assertEquals(Number(response.body.sleepQuality), 3)
     assertEquals(Number(response.body.sportsTime), 3)
     assertEquals(Number(response.body.studyTime), 4.5)
-    assertEquals(Number(response.body.mood), 3.25)
+    assertEquals(Number(response.body.mood), 3)
 })
