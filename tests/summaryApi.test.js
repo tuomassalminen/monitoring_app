@@ -32,13 +32,6 @@ const morningReport3 = {
     date: getToday(),
     userId: 2
 }
-const morningReport4 = {
-    sleepDuration: 7,
-    sleepQuality: 3,
-    mood: 2,
-    date: '2019-01-01',
-    userId: 2
-}
 const eveningReport1 = {
     studyTime: 4,
     sportsTime: 5,
@@ -64,6 +57,15 @@ const eveningReport3 = {
     date: getToday()
 }
 
+const morningReport4 = {
+    sleepDuration: 7,
+    sleepQuality: 3,
+    mood: 4,
+    date: '2019-01-01',
+    userId: 1
+}
+
+
 test(summaryApiSuite, '/api/summary show average of all users from last week', async() => {
     await executeQuery('TRUNCATE evening_reports')
     await executeQuery('TRUNCATE morning_reports')
@@ -84,12 +86,33 @@ test(summaryApiSuite, '/api/summary show average of all users from last week', a
     assertEquals(Number(response.body.studyTime), 3)
     assertEquals(Number(response.body.mood), 3)
 })
+
+const eveningReport4 = {
+    studyTime: 5,
+    sportsTime: 4,
+    eatingQuality: 2,
+    mood: 2,
+    userId: 2,
+    date: '2019-01-01'
+}
+const eveningReport5 = {
+    studyTime: 4,
+    sportsTime: 2,
+    eatingQuality: 3,
+    mood: 3,
+    userId: 3,
+    date: '2019-01-01'
+}
+
 test(summaryApiSuite, '/api/summary/:year/:month/:day shows average of selected date', async() => {
+    await eveningService.addReport(eveningReport4)
+    await eveningService.addReport(eveningReport5)
+
     const testClient = await superoak(app)
     const response = await testClient.get('/api/summary/2019/1/1')
     assertEquals(Number(response.body.sleepDuration), 7)
     assertEquals(Number(response.body.sleepQuality), 3)
-    assertEquals(Number(response.body.sportsTime), 0)
-    assertEquals(Number(response.body.studyTime), 0)
-    assertEquals(Number(response.body.mood), 2)
+    assertEquals(Number(response.body.sportsTime), 3)
+    assertEquals(Number(response.body.studyTime), 4.5)
+    assertEquals(Number(response.body.mood), 3.25)
 })

@@ -25,7 +25,7 @@ const getAveragesFromPeriod = async(firstDay, lastDay, userId) => {
     )
     const morningAverages = morningResult.rowsOfObjects()[0]
     const eveningAverages = eveningResult.rowsOfObjects()[0]
-
+    
     const moodAverage = () => {
         if (morningAverages.mood && eveningAverages.mood) {
             return (Number(morningAverages.mood) + Number(eveningAverages.mood)) / 2

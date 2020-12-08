@@ -8,19 +8,19 @@
     <input id="eveningDate" type="date" name="date" value="<%= date %>"/>
 
     <%- include('./error.ejs', {errors: errors, attribute: 'sportsTime'}) %>
-    <label for="sportsTime">Time on sports and exercising</label>
+    <label for="sportsTime">Time on sports and exercising (hours)</label>
     <input id="sportsTime" type="number" name="sportsTime" value="<%= sportsTime %>"/>
 
     <%- include('./error.ejs', {errors: errors, attribute: 'studyTime'}) %>
-    <label for="studyingTime">Time on studying</label>
+    <label for="studyingTime">Time on studying (hours)</label>
     <input id="studyingTime" type="number" name="studyTime" value="<%= studyTime %>"/>
 
     <%- include('./error.ejs', {errors: errors, attribute: 'eatingQuality'}) %>
-    <label for="eatingQuality">Eating quality</label>
+    <label for="eatingQuality">Eating quality (1-5)</label>
     <input id="eatingQuality" type="range" name="eatingQuality" min="1" max="5" value="<%= eatingQuality %>"/>
 
     <%- include('./error.ejs', {errors: errors, attribute: 'mood'}) %>
-    <label for="eveningMood">Mood</label>
+    <label for="eveningMood">Mood (1-5)</label>
     <input id="eveningMood" type="range" name="mood" min="1" max="5" value="<%= mood %>"/>
 
     <input style='display: block' type="submit" value="Submit"/>

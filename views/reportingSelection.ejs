@@ -3,13 +3,13 @@
 <div style="display: flex; flex-direction: column;">
 
     <% if (morningDone) { %>
-        <a href='/behavior/reporting/morning' class="button">Morning reporting (already done)</a>
+        <a href='/behavior/reporting/morning' class="button">Morning reporting (done for today)</a>
     <% } else { %>
         <a href='/behavior/reporting/morning' class="button">Morning reporting</a>
     <% } %>
 
     <% if (eveningDone) { %>
-        <a href='/behavior/reporting/evening' class="button">Evening reporting (already done)</a>
+        <a href='/behavior/reporting/evening' class="button">Evening reporting (done for today)</a>
     <% } else { %>
         <a href='/behavior/reporting/evening' class="button">Evening reporting</a>
     <% } %>

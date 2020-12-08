@@ -20,6 +20,8 @@ const getData = async(request) => {
     return data
 }
 
+
+
 const showLogin = async({render}) => {
     render('login.ejs', await getData())
 }
