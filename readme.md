@@ -10,31 +10,31 @@ To test type "deno test --allow-all --unstable" in the command line
 Below are the tables needed for the app.
 When creating the test database i dont reference user_id in the report tables, its just "user_id INTEGER"
 
-CREATE TABLE users ( 
-    id SERIAL PRIMARY KEY, 
-    email TEXT NOT NULL, 
-    password CHAR(60) NOT NULL 
+CREATE TABLE users (  
+    id SERIAL PRIMARY KEY,  
+    email TEXT NOT NULL,  
+    password CHAR(60) NOT NULL  
 );
 
 CREATE UNIQUE INDEX ON users((lower(email)));
 
-CREATE TABLE morning_reports ( 
-    id SERIAL PRIMARY KEY, 
-    sleep_duration DECIMAL, 
-    sleep_quality INTEGER, 
-    mood INTEGER, 
-    date DATE, 
-    user_id INTEGER REFERENCES users 
+CREATE TABLE morning_reports (  
+    id SERIAL PRIMARY KEY,  
+    sleep_duration DECIMAL,  
+    sleep_quality INTEGER,  
+    mood INTEGER,  
+    date DATE,  
+    user_id INTEGER REFERENCES users  
 );
 
-CREATE TABLE evening_reports ( 
-    id SERIAL PRIMARY KEY, 
-    study_time DECIMAL, 
-    sports_time DECIMAL, 
-    eating_quality INTEGER, 
-    mood INTEGER, 
-    date DATE, 
-    user_id INTEGER REFERENCES users 
+CREATE TABLE evening_reports (  
+    id SERIAL PRIMARY KEY,  
+    study_time DECIMAL,  
+    sports_time DECIMAL,  
+    eating_quality INTEGER,  
+    mood INTEGER,  
+    date DATE,  
+    user_id INTEGER REFERENCES users  
 );
 
 
