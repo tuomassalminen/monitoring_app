@@ -11,9 +11,9 @@ Below are the tables needed for the app.
 When creating the test database i dont reference user_id in the report tables, its just "user_id INTEGER"
 
 CREATE TABLE users (  
-&nbsp id SERIAL PRIMARY KEY,  
-&nbsp email TEXT NOT NULL,  
-&nbsp password CHAR(60) NOT NULL  
+&emsp; id SERIAL PRIMARY KEY,  
+&emsp; email TEXT NOT NULL,  
+&emsp; password CHAR(60) NOT NULL  
 );
 
 CREATE UNIQUE INDEX ON users((lower(email)));
