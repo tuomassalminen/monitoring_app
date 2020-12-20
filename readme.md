@@ -19,22 +19,22 @@ CREATE TABLE users (
 CREATE UNIQUE INDEX ON users((lower(email)));
 
 CREATE TABLE morning_reports (  
-    id SERIAL PRIMARY KEY,  
-    sleep_duration DECIMAL,  
-    sleep_quality INTEGER,  
-    mood INTEGER,  
-    date DATE,  
-    user_id INTEGER REFERENCES users  
+&emsp; id SERIAL PRIMARY KEY,  
+&emsp; sleep_duration DECIMAL,  
+&emsp; sleep_quality INTEGER,  
+&emsp; mood INTEGER,  
+&emsp; date DATE,  
+&emsp; user_id INTEGER REFERENCES users  
 );
 
 CREATE TABLE evening_reports (  
-    id SERIAL PRIMARY KEY,  
-    study_time DECIMAL,  
-    sports_time DECIMAL,  
-    eating_quality INTEGER,  
-    mood INTEGER,  
-    date DATE,  
-    user_id INTEGER REFERENCES users  
+&emsp; id SERIAL PRIMARY KEY,  
+&emsp; study_time DECIMAL,  
+&emsp; sports_time DECIMAL,  
+&emsp; eating_quality INTEGER,  
+&emsp; mood INTEGER,  
+&emsp; date DATE,  
+&emsp; user_id INTEGER REFERENCES users  
 );
 
 
