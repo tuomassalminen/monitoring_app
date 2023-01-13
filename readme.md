@@ -1,4 +1,4 @@
-The app is running in https://monitoringapptume.herokuapp.com/
+The app is running in https://monitoringapptume.herokuapp.com/ ( not anymore;( )
 
 To run the program locally create a .env file with variables for the database address, or set the env variables from the command line. 
 For testing I set the env variable TEST_ENVIRONMENT=true and the database variables now have TEST_ in front of them.
